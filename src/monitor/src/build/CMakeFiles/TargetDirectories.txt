@@ -1,0 +1,4 @@
+/home/tuf/Desktop/tensorrtx/yolov5/build/CMakeFiles/rebuild_cache.dir
+/home/tuf/Desktop/tensorrtx/yolov5/build/CMakeFiles/edit_cache.dir
+/home/tuf/Desktop/tensorrtx/yolov5/build/CMakeFiles/myplugins.dir
+/home/tuf/Desktop/tensorrtx/yolov5/build/CMakeFiles/yolov5.dir
