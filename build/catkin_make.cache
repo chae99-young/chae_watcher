@@ -1,2 +1,0 @@
-monitor:watcher_pkg
--DCATKIN_DEVEL_PREFIX=/home/tuf2/Watcher/devel -DCMAKE_INSTALL_PREFIX=/home/tuf2/Watcher/install -G Unix Makefiles
