@@ -1,8 +1,0 @@
-prefix=/home/tuf2/chae_watcher/install
-
-Name: detect
-Description: Description of detect
-Version: 0.0.0
-Cflags: -I${prefix}/include
-Libs: -L${prefix}/lib 
-Requires: roscpp std_msgs sensor_msgs message_runtime message_generation
