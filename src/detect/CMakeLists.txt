@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   sensor_msgs
 )
+find_package(OpenCV 4 REQUIRED)
 find_package(CUDA REQUIRED)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -108,7 +109,7 @@ generate_messages(
 catkin_package(
   INCLUDE_DIRS include
   # LIBRARIES detect
-  CATKIN_DEPENDS roscpp message_runtime
+  CATKIN_DEPENDS roscpp std_msgs sensor_msgs message_runtime
   # DEPENDS system_lib
   CATKIN_DEPENDS message_generation
 )
@@ -122,6 +123,7 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS} 
 )
 
 ## Declare a C++ library

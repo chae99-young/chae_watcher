@@ -69,7 +69,7 @@ public:
         CUDA_CHECK(cudaFree(buffers[0]));
         CUDA_CHECK(cudaFree(buffers[1]));
     }
-    void detect(unsigned char *d_roi_image, int roi_w, int roi_h,cv::Mat &img)
+    std::vector<Yolo::Detection>* detect(unsigned char *d_roi_image, int roi_w, int roi_h,cv::Mat &img)
     {
         float image_ratio = roi_w > roi_h ? float(INPUT_W) / float(roi_w) : float(INPUT_H) / float(roi_h);
         int width_out = roi_w > roi_h ? INPUT_W : (int)(roi_w * image_ratio);

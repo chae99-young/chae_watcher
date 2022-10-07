@@ -7,7 +7,6 @@
 #include "utils.h"
 #include "preprocess.h"
 #include "yolov5-detect.h"
-#include "sensor
 #include <sensor_msgs/Image.h>
 
 
@@ -16,12 +15,11 @@
 #include "detect/box.h" 
 #include "detect/boxes.h"
 
-
-cv::Mat img;
+yolov5 *det;
 
 void image_callback(const sensor_msgs::Image &img){
-    int w = img.cols;
-    int h = img.rows;
+    int w = img.width;
+    int h = img.height;
     unsigned char *d_image;
     cudaMalloc((void **)&d_image, sizeof(unsigned char) * w * h * 3);
     cudaMemcpy(d_image, img.data, w * h * 3 * sizeof(unsigned char),cudaMemcpyHostToDevice);
@@ -41,7 +39,6 @@ void image_callback(const sensor_msgs::Image &img){
     print(pub_boxes);
     boxes_pub.publish(pub_boxes);
     cudaFree(d_image);
-    return 0;
 }
 
 int main(int argc, char **argv)
@@ -52,13 +49,13 @@ int main(int argc, char **argv)
     cudaSetDevice(0);
 
     std::string engine_name = "/home/weilan/watcher/src/detect/engine/yolov5_best.engine";
-    yolov5 *det = new yolov5(engine_name, 7);
+    *det = new yolov5(engine_name, 7);
 
     ros::Subscriber sub = n.subscribe("/watcher/image_raw",1000,image_callback);
     ros::Publisher pub = n.advertise<>("vehicles_boxes",1000);
     ros::Rate loop_rate(10);
     
-    img = cv::imread("/home/weilan/watcher/src/detect/msg/bus.jpg");
+    //img = cv::imread("/home/weilan/watcher/src/detect/msg/bus.jpg");
     
 
     ros::spin();

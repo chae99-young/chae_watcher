@@ -1,0 +1,8 @@
+prefix=/home/tuf2/chae_watcher/install
+
+Name: monitor
+Description: Description of monitor
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 
