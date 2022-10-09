@@ -13,6 +13,7 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   message_generation
   sensor_msgs
+  cv_bridge
 )
 find_package(OpenCV 4 REQUIRED)
 find_package(CUDA REQUIRED)
