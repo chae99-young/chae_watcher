@@ -1,0 +1,2 @@
+detect:monitor:watcher_pkg
+-DCATKIN_DEVEL_PREFIX=/home/tuf2/chae_watcher/devel -DCMAKE_INSTALL_PREFIX=/home/tuf2/chae_watcher/install -G Unix Makefiles
