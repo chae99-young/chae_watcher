@@ -69,7 +69,7 @@ public:
         CUDA_CHECK(cudaFree(buffers[0]));
         CUDA_CHECK(cudaFree(buffers[1]));
     }
-    std::vector<Yolo::Detection>& detect(unsigned char *d_roi_image, int roi_w, int roi_h,cv::Mat &img)
+    void detect(unsigned char *d_roi_image, int roi_w, int roi_h,cv::Mat &img,std::vector<Yolo::Detection>& res)
     {
         float image_ratio = roi_w > roi_h ? float(INPUT_W) / float(roi_w) : float(INPUT_H) / float(roi_h);
         int width_out = roi_w > roi_h ? INPUT_W : (int)(roi_w * image_ratio);
@@ -83,11 +83,12 @@ public:
         CUDA_CHECK(cudaStreamCreate(&stream));
         buffers[0] = d_norm_img;
         this->context->enqueue(1, this->buffers, stream, nullptr);
+        
         CUDA_CHECK(cudaMemcpyAsync(this->out_put, this->buffers[1], OUTPUT_SIZE * sizeof(float), cudaMemcpyDeviceToHost, stream));
         cudaStreamSynchronize(stream);
         cudaStreamDestroy(stream);
         std::vector<std::vector<Yolo::Detection>> batch_res(1);
-        std::vector<Yolo::Detection> &res = batch_res[0];
+        res = batch_res[0];
         nms(res, &out_put[0], CONF_THRESH, NMS_THRESH);
 
         for (size_t j = 0; j < res.size(); j++)
@@ -97,8 +98,8 @@ public:
             cv::putText(img, std::to_string((int)res[j].class_id), cv::Point(r.x, r.y + 5), cv::FONT_HERSHEY_PLAIN, 1, cv::Scalar(0xFF, 0xFF, 0xFF), 2);
         }
         cv::imshow("1", img);
-        cv::waitKey(0);
-        return res;
+        cv::waitKey(10);
+//        return res;
     };
 
 private:
